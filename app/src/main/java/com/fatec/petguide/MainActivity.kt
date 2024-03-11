@@ -1,46 +1,25 @@
 package com.fatec.petguide
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.fatec.petguide.ui.theme.PetGuideTheme
+import com.fatec.petguide.data.repository.AccountRepository
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            PetGuideTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+
+        AccountRepository().tryLogin(
+            "pedro.henriquevieira@outlook.com",
+            "pedrotest",
+            callback = object : AccountRepository.onAccountResponse {
+                override fun successful() {
+                    Log.i("pedro", "true")
                 }
-            }
-        }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PetGuideTheme {
-        Greeting("Android")
+                override fun failure() {
+                    Log.i("pedro", "false")
+                }
+            })
     }
 }

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "261078398026",
+    "project_id": "pethelper-99fc9",
+    "firebase_url": "https://pethelper-99fc9-default-rtdb.firebaseio.com",
+    "storage_bucket": "pethelper-99fc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261078398026:android:886355d39751d69d7122b3",
+        "android_client_info": {
+          "package_name": "com.fatec.petguide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn2xG4dZSkInsB2xndiTH1QNB_jc2ippw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
