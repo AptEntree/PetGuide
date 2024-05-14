@@ -4,17 +4,50 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.fatec.petguide.R
+import com.fatec.petguide.databinding.FragmentLoginBinding
 import com.fatec.petguide.ui.base.BaseFragment
+import com.fatec.petguide.ui.states.UserState
 
 class LoginFragment : BaseFragment() {
 
     private val viewModel: AccountViewModel by viewModels()
 
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_login, container, false)
+    ): View {
+        _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+
+        binding.loginEnterButton.setOnClickListener {
+//            viewModel.loginWithCredentials(
+//                "pedro.henriquevieira@outlook.com",
+//                "test123"
+//            )
+            viewModel.loginWithCredentials(
+                binding.loginEmailInputText.text.toString(),
+                binding.loginPasswordInputText.text.toString()
+            )
+        }
+
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
+    override fun setObservers() {
+        viewModel.userState.observe(viewLifecycleOwner) {
+            if (it == UserState.ACTIVATED) Toast.makeText(requireContext(), "deu certo", Toast.LENGTH_LONG).show()
+            else Toast.makeText(requireContext(), "falhou", Toast.LENGTH_LONG).show()
+        }
+    }
 
 }

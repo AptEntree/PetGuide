@@ -16,4 +16,8 @@ class PetListFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_pet_list, container, false)
+
+    override fun setObservers() {
+        TODO("Not yet implemented")
+    }
 }

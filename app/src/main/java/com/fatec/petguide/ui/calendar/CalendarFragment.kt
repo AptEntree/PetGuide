@@ -23,4 +23,8 @@ class CalendarFragment() : BaseFragment() {
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
 
+    override fun setObservers() {
+        TODO("Not yet implemented")
+    }
+
 }
