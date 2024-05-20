@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentLoginBinding
 import com.fatec.petguide.ui.base.BaseFragment
 import com.fatec.petguide.ui.states.UserState
@@ -33,6 +35,10 @@ class LoginFragment : BaseFragment() {
                 binding.loginEmailInputText.text.toString(),
                 binding.loginPasswordInputText.text.toString()
             )
+        }
+
+        binding.registerTextButton.setOnClickListener {
+            findNavController().navigate(R.id.registerFragment)
         }
 
         return binding.root

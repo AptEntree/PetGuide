@@ -18,6 +18,6 @@ class RegisterFragment : BaseFragment() {
     ): View? = inflater.inflate(R.layout.fragment_register, container, false)
 
     override fun setObservers() {
-        TODO("Not yet implemented")
+
     }
 }

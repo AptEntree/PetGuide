@@ -2,4 +2,12 @@
     <string name="app_name">PetGuide</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in">Cadastro</string>
+    <string name="full_name">Nome Completo</string>
+    <string name="document">CPF</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Telefone</string>
+    <string name="password">Senha</string>
+    <string name="terms"><![CDATA[Concordo com os Termos, Condições & Política de Privacidade]]></string>
+    <string name="register">Registrar</string>
 </resources>
