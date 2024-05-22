@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.fatec.petguide.data.repository.AccountRepository
 import com.fatec.petguide.ui.states.UserState
 
-abstract class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel() {
 
     protected val accountRepository = AccountRepository()
 

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.account.RegisterFragment"
     android:background="@android:color/white"
-    android:paddingVertical="20dp">
+    android:paddingVertical="20dp"
+    android:paddingHorizontal="40dp">
 
     <View
         android:id="@+id/layout_mid_guideline"

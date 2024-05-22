@@ -17,8 +17,4 @@ class ReminderListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_reminder_list, container, false)
 
-    override fun setObservers() {
-        TODO("Not yet implemented")
-    }
-
 }

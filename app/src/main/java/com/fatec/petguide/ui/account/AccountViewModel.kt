@@ -1,5 +1,6 @@
 package com.fatec.petguide.ui.account
 
+import com.fatec.petguide.data.entity.UserEntity
 import com.fatec.petguide.data.repository.AccountRepository
 import com.fatec.petguide.ui.base.BaseViewModel
 import com.fatec.petguide.ui.states.UserState
@@ -17,8 +18,12 @@ class AccountViewModel : BaseViewModel(), AccountRepository.OnAccountResponse {
         )
     }
 
+    fun registerNewUser(userEntity: UserEntity) {
+        accountRepository.registerUser(userEntity, this)
+    }
+
     override fun successful() {
-        _userState.postValue(UserState.ACTIVATED)
+        _userState.postValue(UserState.REGISTERED)
     }
 
     override fun failure(state: UserState) {

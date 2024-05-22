@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentLoginBinding
 import com.fatec.petguide.ui.base.BaseFragment
-import com.fatec.petguide.ui.states.UserState
 
 class LoginFragment : BaseFragment() {
 
@@ -47,13 +45,6 @@ class LoginFragment : BaseFragment() {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
-    }
-
-    override fun setObservers() {
-        viewModel.userState.observe(viewLifecycleOwner) {
-            if (it == UserState.ACTIVATED) Toast.makeText(requireContext(), "deu certo", Toast.LENGTH_LONG).show()
-            else Toast.makeText(requireContext(), "falhou", Toast.LENGTH_LONG).show()
-        }
     }
 
 }
