@@ -9,4 +9,12 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_color">#E29578</color>
+    <color name="selected_color">#BB532B</color>
+
+    <color name="reminder_option_1_color">#70DAC7</color>
+    <color name="reminder_option_2_color">#C5DA70</color>
+    <color name="reminder_option_3_color">#D484E1</color>
+    <color name="reminder_option_4_color">#E5984A</color>
+    <color name="reminder_option_5_color">#E15529</color>
+    <color name="reminder_option_6_color">#F5ED20</color>
 </resources>

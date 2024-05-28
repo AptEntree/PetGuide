@@ -6,20 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/main_color"
     android:orientation="vertical"
-    android:weightSum="15"
     tools:context=".ui.account.RegisterFragment">
 
     <include
         android:id="@+id/header_layout"
         layout="@layout/layout_app_header"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3" />
+        android:layout_height="150dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="12"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="22dp">
 
         <TextView
@@ -27,12 +24,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
-            android:textColor="@android:color/white"
-            android:textSize="36dp"
+            style="@style/page_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpUsage" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name_layout"
@@ -44,8 +39,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 style="@style/editTextStyle"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -61,8 +54,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/document_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 style="@style/editTextStyle"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -77,8 +68,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 style="@style/editTextStyle"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -93,8 +82,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 style="@style/editTextStyle"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -110,8 +97,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 style="@style/editTextStyle"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -129,6 +114,7 @@
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/buttonStyle"
             android:text="@string/register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/privacy_button" />

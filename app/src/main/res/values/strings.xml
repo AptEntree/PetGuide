@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">PetGuide</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in">Cadastro</string>
     <string name="full_name">Nome Completo</string>
@@ -10,4 +9,7 @@
     <string name="password">Senha</string>
     <string name="terms"><![CDATA[Concordo com os Termos, Condições & Política de Privacidade]]></string>
     <string name="register">Registrar</string>
+    <string name="login">Entrar</string>
+    <string name="new_here">novo aqui?</string>
+    <string name="login_title">Login</string>
 </resources>
