@@ -20,16 +20,16 @@ abstract class BaseFragment: Fragment() {
         viewModel.userState.observe(viewLifecycleOwner) {
             Log.i("pedro", "aqui: $it")
             when (it) {
-                UserState.ACTIVATED -> testShowToast(UserState.ACTIVATED.toString())
-                UserState.REGISTERED -> testShowToast(UserState.REGISTERED.toString())
-                UserState.NO_SUCH_PASSWORD -> testShowToast(UserState.NO_SUCH_PASSWORD.toString())
-                UserState.NO_SUCH_EMAIL -> testShowToast(UserState.NO_SUCH_EMAIL.toString())
-                UserState.FAILURE -> testShowToast(UserState.FAILURE.toString())
-                else -> testShowToast("Erro")
+                UserState.ACTIVATED -> showToast(UserState.ACTIVATED.toString())
+                UserState.REGISTERED -> showToast(UserState.REGISTERED.toString())
+                UserState.NO_SUCH_PASSWORD -> showToast(UserState.NO_SUCH_PASSWORD.toString())
+                UserState.NO_SUCH_EMAIL -> showToast(UserState.NO_SUCH_EMAIL.toString())
+                UserState.FAILURE -> showToast(UserState.FAILURE.toString())
+                else -> showToast("Erro")
             }
         }
     }
-    open fun testShowToast(string: String) {
+    open fun showToast(string: String) {
         Toast.makeText(requireContext(), string, Toast.LENGTH_LONG).show()
     }
 }

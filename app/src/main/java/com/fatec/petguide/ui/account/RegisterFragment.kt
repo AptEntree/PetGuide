@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.fatec.petguide.R
 import com.fatec.petguide.data.entity.UserEntity
 import com.fatec.petguide.databinding.FragmentRegisterBinding
 import com.fatec.petguide.ui.base.BaseFragment
+import com.fatec.petguide.ui.states.UserState
 
 class RegisterFragment : BaseFragment() {
 
@@ -40,5 +43,19 @@ class RegisterFragment : BaseFragment() {
                 password = binding.passwordInput.text.toString()
             )
         )
+    }
+
+    override fun setObservers() {
+        viewModel.userState.observe(viewLifecycleOwner) {
+            when(it) {
+                UserState.REGISTERED -> findNavController().navigate(R.id.loginFragment)
+                else -> showToast("Um erro aconteceu, tente novamente mais tarde")
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

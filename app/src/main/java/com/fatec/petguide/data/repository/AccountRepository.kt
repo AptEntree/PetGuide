@@ -12,7 +12,7 @@ class AccountRepository {
 
     fun tryLogin(email: String, password: String, callback: OnAccountResponse) =
         Firebase.auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) callback.successful() else callback.failure(UserState.FAILURE)
+            if (task.isSuccessful) callback.successful(UserState.ACTIVATED) else callback.failure(UserState.FAILURE)
         }
 
     fun tryLogOff(): UserState {
@@ -32,7 +32,7 @@ class AccountRepository {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("Pedro", "createUserWithEmailAndPassword:success")
                         createUserOnDatabase(this.uid!!, userEntity)
-                        callback.successful()
+                        callback.successful(UserState.REGISTERED)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("Pedro", "createUserWithEmailAndPassword:failure", task.exception)
@@ -57,7 +57,7 @@ class AccountRepository {
     }
 
     interface OnAccountResponse {
-        fun successful()
+        fun successful(state: UserState)
         fun failure(state: UserState)
     }
 }

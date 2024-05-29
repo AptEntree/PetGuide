@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentLoginBinding
 import com.fatec.petguide.ui.base.BaseFragment
+import com.fatec.petguide.ui.states.UserState
 
 class LoginFragment : BaseFragment() {
 
@@ -40,6 +41,15 @@ class LoginFragment : BaseFragment() {
         }
 
         return binding.root
+    }
+
+    override fun setObservers() {
+        viewModel.userState.observe(viewLifecycleOwner) {
+            when(it) {
+                UserState.ACTIVATED -> findNavController().navigate(R.id.calendarFragment)
+                else -> showToast("Um erro aconteceu, tente novamente mais tarde")
+            }
+        }
     }
 
     override fun onDestroy() {

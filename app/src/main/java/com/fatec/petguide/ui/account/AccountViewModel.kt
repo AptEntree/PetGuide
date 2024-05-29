@@ -22,8 +22,8 @@ class AccountViewModel : BaseViewModel(), AccountRepository.OnAccountResponse {
         accountRepository.registerUser(userEntity, this)
     }
 
-    override fun successful() {
-        _userState.postValue(UserState.REGISTERED)
+    override fun successful(state: UserState) {
+        _userState.postValue(state)
     }
 
     override fun failure(state: UserState) {

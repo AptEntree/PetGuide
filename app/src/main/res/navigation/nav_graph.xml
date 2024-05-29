@@ -9,14 +9,25 @@
         android:id="@+id/loginFragment"
         android:name="com.fatec.petguide.ui.account.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.fatec.petguide.ui.account.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.fatec.petguide.ui.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/petListFragment"
+        android:name="com.fatec.petguide.ui.pet.PetListFragment"
+        android:label="fragment_pet_list"
+        tools:layout="@layout/fragment_pet_list" />
+    <fragment
+        android:id="@+id/reminderListFragment"
+        android:name="com.fatec.petguide.ui.reminder.ReminderListFragment"
+        android:label="fragment_reminder_list"
+        tools:layout="@layout/fragment_reminder_list" />
 </navigation>

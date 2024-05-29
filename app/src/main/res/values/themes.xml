@@ -17,6 +17,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:textSize">@dimen/text_sub_title_size</item>
+        <item name="android:textColorHint">@color/white</item>
     </style>
 
     <style name="buttonStyle">
