@@ -42,7 +42,7 @@ class AccountRepository {
         }
     }
 
-    fun getCurrentUserId() = Firebase.auth.currentUser?.uid
+    fun getCurrentUserId() = Firebase.auth.currentUser?.uid?: "error"
 
     private fun createUserOnDatabase(uid: String, userEntity: UserEntity) {
         with(

@@ -9,11 +9,10 @@ import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentReminderListBinding
 import com.fatec.petguide.ui.base.BaseFragment
-import com.fatec.petguide.ui.pet.PetViewModel
 
 class ReminderListFragment : BaseFragment() {
 
-    private val viewModel: PetViewModel by viewModels()
+    private val viewModel: ReminderViewModel by viewModels()
     private var _binding: FragmentReminderListBinding? = null
     private val binding get() = _binding!!
 
@@ -22,12 +21,13 @@ class ReminderListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReminderListBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getReminderList()
 
         binding.footer.menuHome.setOnClickListener {
             findNavController().navigate(R.id.calendarFragment)
@@ -37,6 +37,14 @@ class ReminderListFragment : BaseFragment() {
 
         binding.footer.menuPets.setOnClickListener {
             findNavController().navigate(R.id.petListFragment)
+        }
+    }
+
+    override fun setObservers() {
+        viewModel.reminderListData.observe(viewLifecycleOwner) {
+            binding.recyclerView.adapter = ReminderAdapter(
+                { TODO("Not yet implemented") },it
+            )
         }
     }
 }
