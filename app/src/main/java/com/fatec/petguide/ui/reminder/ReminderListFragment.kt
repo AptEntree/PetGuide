@@ -28,7 +28,17 @@ class ReminderListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getReminderList()
+    }
 
+    override fun setObservers() {
+        viewModel.reminderListData.observe(viewLifecycleOwner) {
+            binding.recyclerView.adapter = ReminderAdapter(
+                { TODO("Not yet implemented") }, it
+            )
+        }
+    }
+
+    override fun setMenu() {
         binding.footer.menuHome.setOnClickListener {
             findNavController().navigate(R.id.calendarFragment)
         }
@@ -37,14 +47,6 @@ class ReminderListFragment : BaseFragment() {
 
         binding.footer.menuPets.setOnClickListener {
             findNavController().navigate(R.id.petListFragment)
-        }
-    }
-
-    override fun setObservers() {
-        viewModel.reminderListData.observe(viewLifecycleOwner) {
-            binding.recyclerView.adapter = ReminderAdapter(
-                { TODO("Not yet implemented") },it
-            )
         }
     }
 }

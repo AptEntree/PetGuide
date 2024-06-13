@@ -21,13 +21,14 @@ class PetListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPetListBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
+    override fun setMenu() {
         binding.footer.menuHome.setOnClickListener {
             findNavController().navigate(R.id.calendarFragment)
         }

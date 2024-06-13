@@ -1,4 +1,4 @@
-package com.fatec.petguide.ui.calendar
+package com.fatec.petguide.ui.reminder
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.fatec.petguide.ui.base.BaseFragment
 
 class CalendarFragment : BaseFragment() {
 
-    private val viewModel: CalendarViewModel by viewModels()
+    private val viewModel: ReminderViewModel by viewModels()
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
 
@@ -27,7 +27,9 @@ class CalendarFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
+    override fun setMenu() {
         binding.footer.menuHome.setBackgroundResource(R.drawable.selected_menu_item_bg)
 
         binding.footer.menuEvents.setOnClickListener {

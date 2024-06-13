@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentLoginBinding
 import com.fatec.petguide.ui.base.BaseFragment
-import com.fatec.petguide.ui.states.UserState
+import com.fatec.petguide.util.states.UserState
 
 class LoginFragment : BaseFragment() {
 
@@ -56,5 +56,7 @@ class LoginFragment : BaseFragment() {
         _binding = null
         super.onDestroy()
     }
+
+    override fun setMenu() {}
 
 }

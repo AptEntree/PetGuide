@@ -3,7 +3,7 @@ package com.fatec.petguide.data.repository
 import android.util.Log
 import com.fatec.petguide.data.entity.UserEntity
 import com.fatec.petguide.data.util.Constants
-import com.fatec.petguide.ui.states.UserState
+import com.fatec.petguide.util.states.UserState
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -12,7 +12,8 @@ class AccountRepository {
 
     fun tryLogin(email: String, password: String, callback: OnAccountResponse) =
         Firebase.auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) callback.successful(UserState.ACTIVATED) else callback.failure(UserState.FAILURE)
+            if (task.isSuccessful) callback.successful(UserState.ACTIVATED) else callback.failure(
+                UserState.FAILURE)
         }
 
     fun tryLogOff(): UserState {

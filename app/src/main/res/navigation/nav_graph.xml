@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.fatec.petguide.ui.calendar.CalendarFragment"
+        android:name="com.fatec.petguide.ui.reminder.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
     <fragment

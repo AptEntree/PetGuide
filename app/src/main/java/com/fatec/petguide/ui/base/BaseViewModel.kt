@@ -3,7 +3,7 @@ package com.fatec.petguide.ui.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fatec.petguide.data.repository.AccountRepository
-import com.fatec.petguide.ui.states.UserState
+import com.fatec.petguide.util.states.UserState
 
 open class BaseViewModel : ViewModel() {
 

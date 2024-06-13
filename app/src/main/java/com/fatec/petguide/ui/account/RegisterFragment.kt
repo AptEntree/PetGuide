@@ -10,7 +10,7 @@ import com.fatec.petguide.R
 import com.fatec.petguide.data.entity.UserEntity
 import com.fatec.petguide.databinding.FragmentRegisterBinding
 import com.fatec.petguide.ui.base.BaseFragment
-import com.fatec.petguide.ui.states.UserState
+import com.fatec.petguide.util.states.UserState
 
 class RegisterFragment : BaseFragment() {
 
@@ -58,4 +58,6 @@ class RegisterFragment : BaseFragment() {
         _binding = null
         super.onDestroy()
     }
+
+    override fun setMenu() {}
 }

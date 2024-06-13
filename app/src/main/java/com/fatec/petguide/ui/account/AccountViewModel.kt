@@ -3,7 +3,7 @@ package com.fatec.petguide.ui.account
 import com.fatec.petguide.data.entity.UserEntity
 import com.fatec.petguide.data.repository.AccountRepository
 import com.fatec.petguide.ui.base.BaseViewModel
-import com.fatec.petguide.ui.states.UserState
+import com.fatec.petguide.util.states.UserState
 
 class AccountViewModel : BaseViewModel(), AccountRepository.OnAccountResponse {
 

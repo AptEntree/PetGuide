@@ -1,14 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.reminder.CreateReminderFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_background_filled"
+            android:backgroundTint="@color/main_color"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <include
+                android:id="@+id/header"
+                layout="@layout/header_close_menu" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/reminder_title_layout"
+                style="@style/editTextLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/reminder_title_input_text"
+                    style="@style/editTextStyle"
+                    android:hint="Nome do lembrete"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/reminder_pet_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Spinner
+                android:id="@+id/reminder_category_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/reminder_date_layout"
+                style="@style/editTextLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/reminder_date_input_text"
+                    style="@style/editTextStyle"
+                    android:hint="Dia e hora"
+                    android:inputType="datetime" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/reminder_location_layout"
+                style="@style/editTextLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/reminder_location_input_text"
+                    style="@style/editTextStyle"
+                    android:hint="Localização"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selecione uma cor: " />
+
+                <RadioButton
+                    android:id="@+id/reminder_color_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/reminder_option_1_color" />
+
+                <RadioButton
+                    android:id="@+id/reminder_color_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/reminder_option_2_color" />
+
+                <RadioButton
+                    android:id="@+id/reminder_color_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/reminder_option_3_color" />
+
+                <RadioButton
+                    android:id="@+id/reminder_color_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/reminder_option_4_color" />
+
+                <RadioButton
+                    android:id="@+id/reminder_color_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/reminder_option_5_color" />
+
+                <RadioButton
+                    android:id="@+id/reminder_color_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/reminder_option_6_color" />
+            </RadioGroup>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_trash"
+                android:backgroundTint="@color/selected_color"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/menu_footer" />
+
+</LinearLayout>

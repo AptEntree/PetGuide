@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.fatec.petguide.ui.states.UserState
+import com.fatec.petguide.util.states.UserState
 
 abstract class BaseFragment: Fragment() {
 
@@ -14,8 +14,10 @@ abstract class BaseFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setObservers()
+        setMenu()
         super.onViewCreated(view, savedInstanceState)
     }
+
     open fun setObservers() {
         viewModel.userState.observe(viewLifecycleOwner) {
             Log.i("pedro", "aqui: $it")
@@ -32,4 +34,5 @@ abstract class BaseFragment: Fragment() {
     open fun showToast(string: String) {
         Toast.makeText(requireContext(), string, Toast.LENGTH_LONG).show()
     }
+    protected abstract fun setMenu()
 }
