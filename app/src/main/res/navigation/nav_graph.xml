@@ -30,4 +30,8 @@
         android:name="com.fatec.petguide.ui.reminder.ReminderListFragment"
         android:label="fragment_reminder_list"
         tools:layout="@layout/fragment_reminder_list" />
+    <fragment
+        android:id="@+id/createPetFragment"
+        android:name="com.fatec.petguide.ui.pet.CreatePetFragment"
+        android:label="CreatePetFragment" />
 </navigation>

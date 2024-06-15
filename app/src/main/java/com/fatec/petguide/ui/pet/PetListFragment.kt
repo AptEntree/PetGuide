@@ -10,7 +10,7 @@ import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentPetListBinding
 import com.fatec.petguide.ui.base.BaseFragment
 
-class PetListFragment : BaseFragment() {
+class PetListFragment : BaseFragment(), View.OnClickListener {
 
     private val viewModel: PetViewModel by viewModels()
     private var _binding: FragmentPetListBinding? = null
@@ -26,6 +26,19 @@ class PetListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getPetList()
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.createPetFragment)
+        }
+
+    }
+
+    override fun setObservers() {
+        viewModel.petListData.observe(viewLifecycleOwner) {
+
+            binding.recyclerView.adapter = PetListAdapter(this, it)
+        }
     }
 
     override fun setMenu() {
@@ -37,5 +50,8 @@ class PetListFragment : BaseFragment() {
             findNavController().navigate(R.id.reminderListFragment)
         }
         binding.footer.menuPets.setBackgroundResource(R.drawable.selected_menu_item_bg)
+    }
+
+    override fun onClick(p0: View?) {
     }
 }

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
+import com.fatec.petguide.data.entity.PetEntity
 import com.fatec.petguide.databinding.FragmentCreatePetBinding
-import com.fatec.petguide.databinding.FragmentPetListBinding
 import com.fatec.petguide.ui.base.BaseFragment
 
 class CreatePetFragment : BaseFragment() {
@@ -34,5 +34,26 @@ class CreatePetFragment : BaseFragment() {
             findNavController().navigate(R.id.reminderListFragment)
         }
         binding.footer.menuPets.setBackgroundResource(R.drawable.selected_menu_item_bg)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding) {
+            header.icCheck.setOnClickListener {
+                viewModel.tryCreatePet(
+                    PetEntity(
+                        petId = null,
+                        name = petNameInputText.text.toString(),
+                        age = petAgeInputText.text.toString(),
+                        coat = petCoatInputText.text.toString(),
+                        race = null
+                    )
+                )
+            }
+            header.icClose.setOnClickListener {
+                findNavController().navigate(R.id.petListFragment)
+            }
+        }
     }
 }
