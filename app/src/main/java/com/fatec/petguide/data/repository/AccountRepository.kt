@@ -5,7 +5,10 @@ import com.fatec.petguide.data.entity.UserEntity
 import com.fatec.petguide.data.util.Constants
 import com.fatec.petguide.util.states.UserState
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 import com.google.firebase.ktx.Firebase
 
 class AccountRepository {
@@ -44,6 +47,10 @@ class AccountRepository {
     }
 
     fun getCurrentUserId() = Firebase.auth.currentUser?.uid?: "error"
+
+    fun getUserName(valueEventListener: ChildEventListener) {
+        FirebaseDatabase.getInstance().reference.child(Constants.USER_NODE).addChildEventListener(valueEventListener)
+    }
 
     private fun createUserOnDatabase(uid: String, userEntity: UserEntity) {
         with(

@@ -45,6 +45,29 @@ class PetViewModel : BaseViewModel() {
         })
     }
 
+    fun getPartialPetList(text: CharSequence) {
+        petRepository.getPetList(object : ChildEventListener {
+            val list: MutableList<PetEntity> = mutableListOf()
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.exists()) {
+                    if (snapshot.child(Constants.PET_NAME).getValue<String>()?.contains(text) == true) {
+                        list.add(createPetEntity(snapshot))
+                    }
+                }
+                Log.i("pedro", "list: $list")
+                _petListData.postValue(list)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
     private fun createPetEntity(snapshot: DataSnapshot): PetEntity {
         return with(snapshot) {
             PetEntity(

@@ -12,11 +12,12 @@ abstract class BaseFragment: Fragment() {
 
     private val viewModel: BaseViewModel by viewModels()
 
-    open lateinit var userId: String
+    open var userName: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setObservers()
         setMenu()
+        setObservers()
+        viewModel.getUserName()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -31,6 +32,10 @@ abstract class BaseFragment: Fragment() {
                 UserState.FAILURE -> showToast(UserState.FAILURE.toString())
                 else -> showToast("Erro")
             }
+        }
+        viewModel.userName.observe(viewLifecycleOwner) {
+            userName = it?: ""
+            setMenu()
         }
     }
     open fun showToast(string: String) {

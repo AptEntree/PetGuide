@@ -1,5 +1,6 @@
 package com.fatec.petguide.ui.reminder
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentCalendarBinding
 import com.fatec.petguide.ui.base.BaseFragment
+import java.util.Calendar
+import java.util.Date
 
 class CalendarFragment : BaseFragment() {
 
@@ -21,12 +24,9 @@ class CalendarFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        viewModel.getReminderListForToday()
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun setMenu() {
@@ -38,6 +38,45 @@ class CalendarFragment : BaseFragment() {
         binding.footer.menuPets.setOnClickListener {
             findNavController().navigate(R.id.petListFragment)
         }
+        binding.exit.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setTitle("Saindo da aplicação")
+                .setMessage("Você está saindo da aplicação, tem certeza disso?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Confirmar") { _, _ ->
+                    viewModel.logOffUser()
+                    findNavController().navigate(R.id.loginFragment)
+                }.show()
+        }
+
+        binding.welcome.text =
+            "Bem vindo(a): $userName\n Hoje é ${Calendar.getInstance().time.date} de ${
+                getMonth(Calendar.getInstance().time.month)
+            }"
+
+        viewModel.reminderListData.observe(viewLifecycleOwner) {
+            binding.mainText.text =
+                if (it.isEmpty()) "Você ainda não tem nenhum evento agendado para hoje"
+                else "Você tem ${it.size} lembretes marcados para hoje"
+        }
     }
+
+    private fun getMonth(value: Int) =
+        when (value) {
+            0 -> "Janeiro"
+            1 -> "Fevereiro"
+            2 -> "Março"
+            3 -> "Abril"
+            4 -> "Maio"
+            5 -> "Junho"
+            6 -> "Julho"
+            7 -> "Agosto"
+            8 -> "setembro"
+            9 -> "outubro"
+            10 -> "novembro"
+            11 -> "dezembro"
+            else -> ""
+        }
 
 }
