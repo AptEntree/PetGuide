@@ -10,6 +10,7 @@ import com.fatec.petguide.R
 import com.fatec.petguide.databinding.FragmentLoginBinding
 import com.fatec.petguide.ui.base.BaseFragment
 import com.fatec.petguide.util.states.UserState
+import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : BaseFragment() {
 
@@ -25,21 +26,24 @@ class LoginFragment : BaseFragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
 
-        binding.loginEnterButton.setOnClickListener {
-//            viewModel.loginWithCredentials(
-//                "pedro.henriquevieira@outlook.com",
-//                "test123"
-//            )
-            viewModel.loginWithCredentials(
-                binding.loginEmailInputText.text.toString(),
-                binding.loginPasswordInputText.text.toString()
-            )
-        }
+        with(binding) {
+            loginEnterButton.setOnClickListener {
+                if (loginEmailInputText.text.toString().isEmpty()) {
+                    Snackbar.make(root, "Campo de email em branco.", Snackbar.LENGTH_SHORT).show()
+                } else if (loginPasswordInputText.text.toString().isEmpty()) {
+                    Snackbar.make(root, "Campo de senha em branco.", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    viewModel.loginWithCredentials(
+                        loginEmailInputText.text.toString(),
+                        loginPasswordInputText.text.toString()
+                    )
+                }
+            }
 
-        binding.registerTextButton.setOnClickListener {
-            findNavController().navigate(R.id.registerFragment)
+            registerTextButton.setOnClickListener {
+                findNavController().navigate(R.id.registerFragment)
+            }
         }
-
         return binding.root
     }
 
@@ -47,7 +51,7 @@ class LoginFragment : BaseFragment() {
         viewModel.userState.observe(viewLifecycleOwner) {
             when(it) {
                 UserState.ACTIVATED -> findNavController().navigate(R.id.calendarFragment)
-                else -> showToast("Um erro aconteceu, tente novamente mais tarde")
+                else -> showToast("Credenciais incorretas, tente novamente")
             }
         }
     }

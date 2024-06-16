@@ -13,6 +13,7 @@ import com.fatec.petguide.R
 import com.fatec.petguide.data.entity.PetEntity
 import com.fatec.petguide.databinding.FragmentCreatePetBinding
 import com.fatec.petguide.ui.base.BaseFragment
+import com.google.android.material.snackbar.Snackbar
 
 
 class CreatePetFragment : BaseFragment() {
@@ -47,17 +48,22 @@ class CreatePetFragment : BaseFragment() {
 
         with(binding) {
             header.icCheck.setOnClickListener {
-                viewModel.tryCreatePet(
-                    PetEntity(
-                        petId = null,
-                        name = petNameInputText.text.toString(),
-                        age = petAgeInputText.text.toString(),
-                        coat = petCoatInputText.text.toString(),
-                        race = raceSpinner.selectedItem.toString()
+                if (verifyFields()) {
+                    viewModel.tryCreatePet(
+                        PetEntity(
+                            petId = null,
+                            name = petNameInputText.text.toString(),
+                            age = petAgeInputText.text.toString(),
+                            coat = petCoatInputText.text.toString(),
+                            race = raceSpinner.selectedItem.toString()
+                        )
                     )
-                )
-                Toast.makeText(context, "Pet adicionado com sucesso", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.petListFragment)
+                    Toast.makeText(context, "Pet adicionado com sucesso", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.petListFragment)
+                } else {
+                    Snackbar.make(root, "Algum campo está em branco. Por favor verique", Snackbar.LENGTH_SHORT).show()
+                }
+
             }
             header.icClose.setOnClickListener {
                 createDialog(R.id.petListFragment)
@@ -84,5 +90,14 @@ class CreatePetFragment : BaseFragment() {
             .setPositiveButton("Confirmar") { _, _ ->
                 findNavController().navigate(id)
             }.show()
+    }
+
+    private fun verifyFields(): Boolean {
+        with(binding) {
+            if (petNameInputText.text.toString().isEmpty()) return false
+            if (petAgeInputText.text.toString().isEmpty()) return false
+            if (petCoatInputText.text.toString().isEmpty()) return false
+            return true
+        }
     }
 }
