@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="purple_200">#BB532B</color>
+    <color name="purple_500">#BB532B</color>
+    <color name="purple_700">#BB532B</color>
+    <color name="teal_200">#BB532B</color>
+    <color name="teal_700">#BB532B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_color">#E29578</color>
     <color name="selected_color">#BB532B</color>
-
-    <color name="reminder_option_1_color">#70DAC7</color>
-    <color name="reminder_option_2_color">#C5DA70</color>
-    <color name="reminder_option_3_color">#D484E1</color>
-    <color name="reminder_option_4_color">#E5984A</color>
-    <color name="reminder_option_5_color">#E15529</color>
-    <color name="reminder_option_6_color">#F5ED20</color>
 </resources>

@@ -18,6 +18,17 @@
         app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        android:text="Nenhum animal cadastrado até o momento"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -28,16 +39,6 @@
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/footer"

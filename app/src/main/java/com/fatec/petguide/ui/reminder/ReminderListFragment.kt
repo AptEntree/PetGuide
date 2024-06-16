@@ -39,6 +39,7 @@ class ReminderListFragment : BaseFragment(), ReminderAdapter.OnClickListener {
     override fun setObservers() {
         viewModel.reminderListData.observe(viewLifecycleOwner) {
             binding.recyclerView.adapter = ReminderAdapter(this, it)
+            binding.emptyText.visibility = View.GONE
         }
 
         binding.header.searchBar.doOnTextChanged { text, start, before, count ->

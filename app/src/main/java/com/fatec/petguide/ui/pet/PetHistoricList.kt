@@ -95,6 +95,7 @@ class PetHistoricList : BaseFragment(), HistoricPetAdapter.OnClickListener {
     override fun setObservers() {
         viewModel.petHistoricListData.observe(viewLifecycleOwner) {
             binding.recyclerView.adapter = HistoricPetAdapter(this, it)
+            binding.emptyText.visibility = View.GONE
         }
     }
 

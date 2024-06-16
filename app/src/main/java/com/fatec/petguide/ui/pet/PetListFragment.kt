@@ -29,7 +29,6 @@ class PetListFragment : BaseFragment(), PetListAdapter.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.progress.visibility = View.VISIBLE
         viewModel.getPetList()
 
         binding.fab.setOnClickListener {
@@ -58,7 +57,7 @@ class PetListFragment : BaseFragment(), PetListAdapter.OnClickListener {
     override fun setObservers() {
         viewModel.petListData.observe(viewLifecycleOwner) {
             binding.recyclerView.adapter = PetListAdapter(this, it)
-            binding.progress.visibility = View.GONE
+            binding.emptyText.visibility = View.GONE
         }
     }
 
