@@ -1,15 +1,19 @@
 package com.fatec.petguide.ui.pet
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
 import com.fatec.petguide.data.entity.PetEntity
 import com.fatec.petguide.databinding.FragmentCreatePetBinding
 import com.fatec.petguide.ui.base.BaseFragment
+
 
 class CreatePetFragment : BaseFragment() {
 
@@ -27,11 +31,13 @@ class CreatePetFragment : BaseFragment() {
 
     override fun setMenu() {
         binding.footer.menuHome.setOnClickListener {
-            findNavController().navigate(R.id.calendarFragment)
+            createDialog(R.id.calendarFragment)
         }
 
+        binding.header.title.text = "Adicionar pet"
+
         binding.footer.menuEvents.setOnClickListener {
-            findNavController().navigate(R.id.reminderListFragment)
+            createDialog(R.id.reminderListFragment)
         }
         binding.footer.menuPets.setBackgroundResource(R.drawable.selected_menu_item_bg)
     }
@@ -47,13 +53,36 @@ class CreatePetFragment : BaseFragment() {
                         name = petNameInputText.text.toString(),
                         age = petAgeInputText.text.toString(),
                         coat = petCoatInputText.text.toString(),
-                        race = null
+                        race = raceSpinner.selectedItem.toString()
                     )
                 )
-            }
-            header.icClose.setOnClickListener {
+                Toast.makeText(context, "Pet adicionado com sucesso", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.petListFragment)
             }
+            header.icClose.setOnClickListener {
+                createDialog(R.id.petListFragment)
+            }
+
+            context?.let {
+                ArrayAdapter.createFromResource(
+                    it,
+                    R.array.pet_array,R.layout.spinner_modified
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding.raceSpinner.adapter = adapter
+                }
+            }
         }
+    }
+
+    private fun createDialog(id: Int) {
+        AlertDialog.Builder(context)
+            .setTitle("Dados serão excluidos")
+            .setMessage("Realmente deseja cancelar a adição de um novo pet?")
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setNegativeButton("Cancelar", null)
+            .setPositiveButton("Confirmar") { _, _ ->
+                findNavController().navigate(id)
+            }.show()
     }
 }

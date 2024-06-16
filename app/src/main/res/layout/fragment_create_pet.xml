@@ -44,13 +44,15 @@
                 android:id="@+id/pet_age_input_text"
                 style="@style/editTextStyle"
                 android:hint="Idade aproximada:"
-                android:inputType="text" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
             android:id="@+id/race_spinner"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="50dp"
+            android:background="@drawable/round_white_stroke"
+            android:layout_marginVertical="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pet_coat_layout"

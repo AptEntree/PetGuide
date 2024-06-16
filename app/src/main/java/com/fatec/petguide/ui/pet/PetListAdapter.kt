@@ -8,7 +8,7 @@ import com.fatec.petguide.data.entity.PetEntity
 import com.fatec.petguide.databinding.PetItemBinding
 
 class PetListAdapter(
-    private val onClickListener: View.OnClickListener,
+    private val onClickListener: OnClickListener,
     private val renderList: List<PetEntity?>
 ) : RecyclerView.Adapter<PetListAdapter.PetListViewHolder>() {
 
@@ -18,10 +18,12 @@ class PetListAdapter(
         fun bind(petEntity: PetEntity?) {
             with(binding) {
                 petName.text = petEntity?.name
-                petAge.text = petEntity?.age
-                petCoat.text = petEntity?.coat
-                petRace.text = petEntity?.race
-                historicButton.setOnClickListener(onClickListener)
+                petAge.text = "Idade: ${petEntity?.age}"
+                petCoat.text = "Pelagem: ${petEntity?.coat}"
+                petRace.text = "Raça: ${petEntity?.race}"
+                historicButton.setOnClickListener {
+                    onClickListener.onClick(petEntity?.petId?: "")
+                }
             }
         }
     }
@@ -36,4 +38,8 @@ class PetListAdapter(
     override fun getItemCount(): Int = renderList.size
 
     override fun onBindViewHolder(holder: PetListViewHolder, position: Int) = holder.bind(renderList[position])
+
+    interface OnClickListener {
+        fun onClick(id: String)
+    }
 }

@@ -12,6 +12,8 @@ abstract class BaseFragment: Fragment() {
 
     private val viewModel: BaseViewModel by viewModels()
 
+    open lateinit var userId: String
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setObservers()
         setMenu()
