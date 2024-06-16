@@ -55,7 +55,7 @@ class CalendarFragment : BaseFragment() {
                 getMonth(Calendar.getInstance().time.month)
             }"
 
-        viewModel.reminderListData.observe(viewLifecycleOwner) {
+        viewModel.reminderListForTodayData.observe(viewLifecycleOwner) {
             binding.mainText.text =
                 if (it.isEmpty()) "Você ainda não tem nenhum evento agendado para hoje"
                 else "Você tem ${it.size} lembretes marcados para hoje"

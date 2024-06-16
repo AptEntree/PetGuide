@@ -21,6 +21,9 @@ class ReminderAdapter(
                     reminderTitle.text = "${reminderEntity.petId}: ${reminderEntity.title}"
                     reminderClinic.text = reminderEntity.location
                     dayItem.dayName.text = reminderEntity.date
+                    root.setOnClickListener {
+                        onClickListener.onClick(reminderEntity.reminderId)
+                    }
                 }
             }
         }
@@ -38,4 +41,8 @@ class ReminderAdapter(
 
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) =
         holder.bind(renderList[position])
+
+    interface OnClickListener {
+        fun onClick(reminderId: String?)
+    }
 }

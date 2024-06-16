@@ -26,4 +26,10 @@ class ReminderRepository(private val userId: String) {
             .child(Constants.REMINDER_NODE).addChildEventListener(valueEventListener)
     }
 
+    fun deleteReminder(reminderId: String) {
+        FirebaseDatabase.getInstance().reference.child(Constants.USER_NODE).child(userId)
+            .child(Constants.REMINDER_NODE).child(reminderId).removeValue(null)
+
+    }
+
 }

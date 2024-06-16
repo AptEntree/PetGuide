@@ -1,10 +1,7 @@
 package com.fatec.petguide.ui.reminder
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fatec.petguide.data.entity.HistoricEntity
-import com.fatec.petguide.data.entity.PetEntity
 import com.fatec.petguide.data.entity.ReminderEntity
 import com.fatec.petguide.data.repository.PetRepository
 import com.fatec.petguide.data.repository.ReminderRepository
@@ -26,6 +23,9 @@ class ReminderViewModel : BaseViewModel() {
     private var _reminderListData: MutableLiveData<List<ReminderEntity>> = MutableLiveData()
     val reminderListData: LiveData<List<ReminderEntity>> get() = _reminderListData
 
+    private var _reminderListForTodayData: MutableLiveData<List<ReminderEntity>> = MutableLiveData()
+    val reminderListForTodayData: LiveData<List<ReminderEntity>> get() = _reminderListForTodayData
+
     private var _petListData: MutableLiveData<List<String?>> = MutableLiveData()
     val petListData: LiveData<List<String?>> get() = _petListData
 
@@ -34,7 +34,9 @@ class ReminderViewModel : BaseViewModel() {
             val list: MutableList<ReminderEntity> = mutableListOf()
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (snapshot.exists()) {
-                    list.add(createReminderEntity(snapshot))
+                    if (isNewer(snapshot.child(Constants.REMINDER_DATE).getValue<String>())) {
+                        list.add(createReminderEntity(snapshot))
+                    }
                 }
                 _reminderListData.postValue(list)
             }
@@ -60,7 +62,9 @@ class ReminderViewModel : BaseViewModel() {
             val list: MutableList<ReminderEntity> = mutableListOf()
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (snapshot.exists()) {
-                    if (snapshot.child(Constants.REMINDER_TITLE).getValue<String>()?.contains(text) == true) {
+                    if (snapshot.child(Constants.REMINDER_TITLE).getValue<String>()
+                            ?.contains(text) == true
+                    ) {
                         list.add(createReminderEntity(snapshot))
                     }
                 }
@@ -84,11 +88,13 @@ class ReminderViewModel : BaseViewModel() {
                 if (snapshot.exists()) {
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                     val formattedDate = dateFormat.format(Calendar.getInstance().time)
-                    if (formattedDate == snapshot.child(Constants.REMINDER_DATE).getValue<String>()) {
+                    if (formattedDate == snapshot.child(Constants.REMINDER_DATE)
+                            .getValue<String>()
+                    ) {
                         list.add(createReminderEntity(snapshot))
                     }
                 }
-                _reminderListData.postValue(list)
+                _reminderListForTodayData.postValue(list)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
@@ -133,5 +139,28 @@ class ReminderViewModel : BaseViewModel() {
 
             override fun onCancelled(error: DatabaseError) {}
         })
+    }
+
+    fun deleteReminder(reminderId: String?) {
+        if (reminderId != null) {
+            reminderRepository.deleteReminder(reminderId)
+        }
+    }
+
+    private fun isNewer(value: String?): Boolean {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(Calendar.getInstance().time)
+
+        val splitTested = (value?: "").split("/")
+        val splitTester = formattedDate.split("/")
+
+        if (splitTested.size == 3) {
+            return if (splitTested[2].toInt() < splitTester[2].toInt()) {
+                false
+            } else if (splitTested[1].toInt() < splitTester[1].toInt()) {
+                false
+            } else splitTested[0].toInt() >= splitTester[0].toInt()
+        }
+        return true
     }
 }
