@@ -8,7 +8,7 @@ import com.fatec.petguide.data.entity.HistoricEntity
 import com.fatec.petguide.databinding.HistoricItemBinding
 
 class HistoricPetAdapter(
-    private val onClickListener: View.OnClickListener,
+    private val onClickListener: OnClickListener,
     private val renderList: List<HistoricEntity?>
 ) : RecyclerView.Adapter<HistoricPetAdapter.HistoricLisViewHolder>() {
 
@@ -17,7 +17,12 @@ class HistoricPetAdapter(
 
         fun bind(historicEntity: HistoricEntity?) {
             with(binding) {
-                text.text = historicEntity?.title
+                title.text = historicEntity?.title
+                date.text = historicEntity?.date
+                file.text = historicEntity?.file
+                root.setOnClickListener {
+                    onClickListener.onClick(file = historicEntity?.file)
+                }
             }
         }
     }
@@ -33,4 +38,8 @@ class HistoricPetAdapter(
 
     override fun onBindViewHolder(holder: HistoricLisViewHolder, position: Int) =
         holder.bind(renderList[position])
+
+    interface OnClickListener {
+        fun onClick(file: String?)
+    }
 }

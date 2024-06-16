@@ -41,7 +41,6 @@ class ReminderViewModel : BaseViewModel() {
                 if (snapshot.exists()) {
                     list.add(createReminderEntity(snapshot))
                 }
-                Log.i("pedro", "list: $list")
                 _reminderListData.postValue(list)
             }
 
@@ -62,7 +61,6 @@ class ReminderViewModel : BaseViewModel() {
                 if (snapshot.exists()) {
                     list.add(createReminderEntity(snapshot))
                 }
-                Log.i("pedro", "list: $list")
                 _reminderListData.postValue(list)
             }
 

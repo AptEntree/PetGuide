@@ -1,11 +1,19 @@
 package com.fatec.petguide.ui.pet
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.DocumentsContract
+import android.provider.MediaStore.AUTHORITY
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fatec.petguide.R
@@ -16,7 +24,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-class PetHistoricList : BaseFragment(), View.OnClickListener {
+class PetHistoricList : BaseFragment(), HistoricPetAdapter.OnClickListener {
 
     private val viewModel: PetViewModel by viewModels()
     private var _binding: FragmentPetHistoricListBinding? = null
@@ -28,7 +36,7 @@ class PetHistoricList : BaseFragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPetHistoricListBinding.inflate(inflater, container, false)
-        petId = arguments?.getString("key")?: ""
+        petId = arguments?.getString("key") ?: ""
 
         return binding.root
     }
@@ -40,6 +48,23 @@ class PetHistoricList : BaseFragment(), View.OnClickListener {
         binding.fab.setOnClickListener {
             showFileChooser()
         }
+
+        binding.header.searchBar.doOnTextChanged { text, start, before, count ->
+            if (text.isNullOrEmpty()) viewModel.getPetHistoricList(petId)
+            else viewModel.getPetPartialHistoricList(petId, text)
+        }
+
+        binding.header.exit.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setTitle("Saindo da aplicação")
+                .setMessage("Você está saindo da aplicação, tem certeza disso?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Confirmar") { _, _ ->
+                    viewModel.logOffUser()
+                    findNavController().navigate(R.id.loginFragment)
+                }.show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -50,7 +75,7 @@ class PetHistoricList : BaseFragment(), View.OnClickListener {
                 HistoricEntity(
                     historicId = null,
                     date = Calendar.getInstance().time.toString(),
-                    file = data.data?.path.toString(),
+                    file = data.data?.toString(),
                     title = File(data.data?.path.toString()).name
                 )
             )
@@ -62,7 +87,7 @@ class PetHistoricList : BaseFragment(), View.OnClickListener {
 
     private fun showFileChooser() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"
+        intent.type = "application/pdf"
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(Intent.createChooser(intent, "select a file"), 100)
     }
@@ -84,6 +109,12 @@ class PetHistoricList : BaseFragment(), View.OnClickListener {
         binding.footer.menuPets.setBackgroundResource(R.drawable.selected_menu_item_bg)
     }
 
-    override fun onClick(p0: View?) {
+    override fun onClick(file: String?) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            Log.i("pedro", "${Uri.parse(file)}")
+            data = Uri.parse(file)
+        }
+
+        startActivity(intent)
     }
 }

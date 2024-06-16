@@ -23,7 +23,6 @@ abstract class BaseFragment: Fragment() {
 
     open fun setObservers() {
         viewModel.userState.observe(viewLifecycleOwner) {
-            Log.i("pedro", "aqui: $it")
             when (it) {
                 UserState.ACTIVATED -> showToast(UserState.ACTIVATED.toString())
                 UserState.REGISTERED -> showToast(UserState.REGISTERED.toString())

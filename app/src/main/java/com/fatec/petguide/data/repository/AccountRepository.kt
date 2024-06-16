@@ -34,12 +34,10 @@ class AccountRepository {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d("Pedro", "createUserWithEmailAndPassword:success")
                         createUserOnDatabase(this.uid!!, userEntity)
                         callback.successful(UserState.REGISTERED)
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w("Pedro", "createUserWithEmailAndPassword:failure", task.exception)
                         callback.failure(UserState.FAILURE)
                     }
                 }

@@ -31,7 +31,6 @@ class PetViewModel : BaseViewModel() {
                 if (snapshot.exists()) {
                     list.add(createPetEntity(snapshot))
                 }
-                Log.i("pedro", "list: $list")
                 _petListData.postValue(list)
             }
 
@@ -54,7 +53,6 @@ class PetViewModel : BaseViewModel() {
                         list.add(createPetEntity(snapshot))
                     }
                 }
-                Log.i("pedro", "list: $list")
                 _petListData.postValue(list)
             }
 
@@ -87,7 +85,28 @@ class PetViewModel : BaseViewModel() {
                 if (snapshot.exists()) {
                     list.add(createPetHistoricEntity(snapshot))
                 }
-                Log.i("pedro", "list: $list")
+                _petHistoricListData.postValue(list)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    fun getPetPartialHistoricList(petId: String, text: CharSequence) {
+        petRepository.getHistoricList(petId, object : ChildEventListener {
+            val list: MutableList<HistoricEntity> = mutableListOf()
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.exists()) {
+                    if (snapshot.child(Constants.HISTORIC_TITLE).getValue<String>()?.contains(text) == true) {
+                        list.add(createPetHistoricEntity(snapshot))
+                    }
+                }
                 _petHistoricListData.postValue(list)
             }
 

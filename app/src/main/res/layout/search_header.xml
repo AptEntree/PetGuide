@@ -4,7 +4,6 @@
     android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/round_bottom_background"
-    android:backgroundTint="@color/main_color"
     android:padding="10dp">
 
     <ImageView
