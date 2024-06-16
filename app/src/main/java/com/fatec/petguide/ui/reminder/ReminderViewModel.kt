@@ -3,7 +3,10 @@ package com.fatec.petguide.ui.reminder
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.fatec.petguide.data.entity.HistoricEntity
+import com.fatec.petguide.data.entity.PetEntity
 import com.fatec.petguide.data.entity.ReminderEntity
+import com.fatec.petguide.data.repository.PetRepository
 import com.fatec.petguide.data.repository.ReminderRepository
 import com.fatec.petguide.data.util.Constants
 import com.fatec.petguide.ui.base.BaseViewModel
@@ -11,28 +14,20 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.getValue
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class ReminderViewModel : BaseViewModel() {
 
     private val reminderRepository = ReminderRepository(accountRepository.getCurrentUserId())
+    private val petRepository = PetRepository(accountRepository.getCurrentUserId())
 
     private var _reminderListData: MutableLiveData<List<ReminderEntity>> = MutableLiveData()
     val reminderListData: LiveData<List<ReminderEntity>> get() = _reminderListData
 
-    fun startValues() {
-        reminderRepository.createReminder(
-            ReminderEntity(
-                title = "test_title",
-                reminderId = null,
-                category = "test_category",
-                color = 0,
-                date = 0L,
-                location = "test_location",
-                petId = "test_pet_id"
-            )
-        )
-    }
+    private var _petListData: MutableLiveData<List<String?>> = MutableLiveData()
+    val petListData: LiveData<List<String?>> get() = _petListData
 
     fun getReminderList() {
         reminderRepository.getReminderList(object : ChildEventListener {
@@ -54,12 +49,44 @@ class ReminderViewModel : BaseViewModel() {
         })
     }
 
+    fun tryCreateReminder(
+        reminderEntity: ReminderEntity
+    ) {
+        reminderRepository.createReminder(reminderEntity)
+    }
+
+    fun getPartialReminderList(text: CharSequence) {
+        reminderRepository.getReminderList(object : ChildEventListener {
+            val list: MutableList<ReminderEntity> = mutableListOf()
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.exists()) {
+                    if (snapshot.child(Constants.REMINDER_TITLE).getValue<String>()?.contains(text) == true) {
+                        list.add(createReminderEntity(snapshot))
+                    }
+                }
+                _reminderListData.postValue(list)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
     fun getReminderListForToday() {
         reminderRepository.getReminderList(object : ChildEventListener {
             val list: MutableList<ReminderEntity> = mutableListOf()
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (snapshot.exists()) {
-                    list.add(createReminderEntity(snapshot))
+                    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val formattedDate = dateFormat.format(Calendar.getInstance().time)
+                    if (formattedDate == snapshot.child(Constants.REMINDER_DATE).getValue<String>()) {
+                        list.add(createReminderEntity(snapshot))
+                    }
                 }
                 _reminderListData.postValue(list)
             }
@@ -83,8 +110,28 @@ class ReminderViewModel : BaseViewModel() {
                 category = child(Constants.REMINDER_CATEGORY).getValue<String>(),
                 location = child(Constants.REMINDER_LOCATION).getValue<String>(),
                 color = child(Constants.REMINDER_COLOR).getValue<Int>(),
-                date = child(Constants.REMINDER_DATE).getValue<Long>()
+                date = child(Constants.REMINDER_DATE).getValue<String>()
             )
         }
+    }
+
+    fun getPetNameList() {
+        petRepository.getPetList(object : ChildEventListener {
+            val list: MutableList<String?> = mutableListOf()
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.exists()) {
+                    list.add(snapshot.child(Constants.PET_NAME).getValue<String>())
+                }
+                _petListData.postValue(list)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 }

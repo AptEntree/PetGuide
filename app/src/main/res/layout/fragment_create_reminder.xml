@@ -41,27 +41,35 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
-                android:id="@+id/reminder_pet_spinner"
+                android:id="@+id/pet_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="50dp"
+                android:background="@drawable/round_white_stroke"
+                android:layout_marginVertical="20dp" />
 
-            <Spinner
-                android:id="@+id/reminder_category_spinner"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/reminder_date_layout"
-                style="@style/editTextLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/reminder_date_input_text"
-                    style="@style/editTextStyle"
-                    android:hint="Dia e hora"
-                    android:inputType="datetime" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@drawable/round_white_stroke"
+                android:padding="10dp"
+                android:layout_marginVertical="20dp">
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Data:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:gravity="center_vertical"/>
+                <ImageView
+                    android:id="@+id/date_selection"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    style="@style/buttonStyle"
+                    android:src="@drawable/ic_calendar"/>
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/reminder_location_layout"
@@ -72,62 +80,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reminder_location_input_text"
                     style="@style/editTextStyle"
-                    android:hint="Localização"
+                    android:hint="Endereço"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Selecione uma cor: " />
-
-                <RadioButton
-                    android:id="@+id/reminder_color_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTint="@color/reminder_option_1_color" />
-
-                <RadioButton
-                    android:id="@+id/reminder_color_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTint="@color/reminder_option_2_color" />
-
-                <RadioButton
-                    android:id="@+id/reminder_color_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTint="@color/reminder_option_3_color" />
-
-                <RadioButton
-                    android:id="@+id/reminder_color_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTint="@color/reminder_option_4_color" />
-
-                <RadioButton
-                    android:id="@+id/reminder_color_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTint="@color/reminder_option_5_color" />
-
-                <RadioButton
-                    android:id="@+id/reminder_color_6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTint="@color/reminder_option_6_color" />
-            </RadioGroup>
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_trash"
-                android:backgroundTint="@color/selected_color"/>
         </LinearLayout>
     </LinearLayout>
 

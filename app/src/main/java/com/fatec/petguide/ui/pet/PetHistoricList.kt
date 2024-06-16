@@ -74,7 +74,7 @@ class PetHistoricList : BaseFragment(), HistoricPetAdapter.OnClickListener {
                 petId,
                 HistoricEntity(
                     historicId = null,
-                    date = Calendar.getInstance().time.toString(),
+                    date = "${Calendar.getInstance().time.date} de ${getMonth(Calendar.getInstance().time.month)}",
                     file = data.data?.toString(),
                     title = File(data.data?.path.toString()).name
                 )
@@ -117,4 +117,22 @@ class PetHistoricList : BaseFragment(), HistoricPetAdapter.OnClickListener {
 
         startActivity(intent)
     }
+
+    private fun getMonth(value: Int) =
+        when (value) {
+            0 -> "Janeiro"
+            1 -> "Fevereiro"
+            2 -> "Março"
+            3 -> "Abril"
+            4 -> "Maio"
+            5 -> "Junho"
+            6 -> "Julho"
+            7 -> "Agosto"
+            8 -> "setembro"
+            9 -> "outubro"
+            10 -> "novembro"
+            11 -> "dezembro"
+            else -> ""
+        }
+
 }

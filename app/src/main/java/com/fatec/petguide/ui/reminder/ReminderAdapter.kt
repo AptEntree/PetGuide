@@ -18,8 +18,9 @@ class ReminderAdapter(
         fun bind(reminderEntity: ReminderEntity?) {
             reminderEntity?.let {
                 with(binding) {
-                    reminderTitle.text = reminderEntity.title
+                    reminderTitle.text = "${reminderEntity.petId}: ${reminderEntity.title}"
                     reminderClinic.text = reminderEntity.location
+                    dayItem.dayName.text = reminderEntity.date
                 }
             }
         }
